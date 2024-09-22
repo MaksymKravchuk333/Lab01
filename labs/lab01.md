@@ -35,30 +35,31 @@
 #include <locale> // для того, щоб поставити виведення української мови замість символів у компіляторі
 #include <limits> // для std::numeric_limits
 #include <math.h> // для математичних дій
-using namespace std; 
+using namespace std;
 int main() {
     setlocale(LC_CTYPE, "ukr");
- 
+
     const short SIZE = 4; //змінна для розміру масиву "valueOfVariables"
     double valueOfVariables[SIZE]; //масив для того, щоб вводити дані для значення A, B, C, D(тобто для valueOfVariables[0] ... [3])
-    char variables[]{'A','B','C','D'}; //масив для того, щоб відображити чат, які значення вводить користувач
+    char variables[]{ 'A','B','C','D' }; //масив для того, щоб відображити чат, які значення вводить користувач
     //Перевірка введеного значення чи є воно числом
     for (short i = 0; i < SIZE; i++) { //повторення дій на кожне значення масиву
         while (true) {
-            cout << "Введiть ціле значення " << variables[i] << ":"; 
+            cout << "Введiть цiле значення " << variables[i] << ":";
             cin >> valueOfVariables[i]; //введення значень користувачем
             if (cin.fail()) { // Якщо введення не є числом
                 cin.clear(); // Очищаємо стан потоку
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ігноруємо неправильне введення
                 cout << "Некоректне введення. Будь ласка, спробуйте ще раз." << endl;
-            }else{
+            }
+            else {
                 break; // Введено коректне число, виходимо з циклу
             }
         }
     }
     /*так як програма вимагає користувача вводу лише цілих значень, і для того, щоб отримати 0 в знаменнику(в результаті чого ми б не отримали коренів),
     ми б мали вводити радіани, або ще складніші числа. Тому я не робив перевірку на обмеження, щоб не ускладнювати код.
-    
+
     Створення змінної Х для загального розрахунку:*/
     double X = (valueOfVariables[0] * sin(valueOfVariables[1]) + valueOfVariables[1] * cos(valueOfVariables[0])) / (1 - sin(valueOfVariables[2]) * abs(valueOfVariables[1] + valueOfVariables[3]));
     cout << "Результат X = (ASinB + BCosA)/(1-SinC*|B+D|) = " << X; // вивід результату
@@ -93,7 +94,14 @@ int main() {
 }
 ```
 ## Результат виконання програми
+### Задача №1
+![image](https://github.com/user-attachments/assets/312a35ec-fc1a-4704-afb0-9bee88ed5210)
 
+Також приклад результату, якщо ми введемо замість числа інший символ:
+![image](https://github.com/user-attachments/assets/64204cd5-fbb9-42b4-976c-e253379cee92)
+
+### Задача №2
+![image](https://github.com/user-attachments/assets/98238eea-0d0a-4068-813e-07be1e4c9e8f)
 
 ## Аналіз достовірності результатів
 Перевіримо чи є кінцевий результат задач вірним. Для цього використаймо калькулятор "Photomath"
