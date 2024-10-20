@@ -265,7 +265,7 @@ void main() {
 ### Задача №2
 Підберемо значення, щоб квадрати перетинались:
 
-![image](https://github.com/user-attachments/assets/a76f4318-ec4b-46ba-9f56-a6e9edecc412)
+![image](https://github.com/user-attachments/assets/ab8f1589-c2e4-4551-abb7-9289e7da62e0)
 
 та, щоб не перетинались:
 
