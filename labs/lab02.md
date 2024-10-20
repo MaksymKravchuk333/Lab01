@@ -22,7 +22,7 @@
 **Зверніть увагу**, що при редагуванні та запуску коду, слід використовувати найновішу версію компілятора.
 ## Алгоритм у вигляді блок-схеми
 ### Задача №1
-![image](https://github.com/user-attachments/assets/9e866582-6e20-43b7-a4a9-5b9d7dfe4ae2)
+![image](https://github.com/user-attachments/assets/d668b6b8-61f6-4be6-94e5-33f7c0e1af16)
 ### Задача №2
 ![image](https://github.com/user-attachments/assets/aac7f5f4-a2cb-4d60-aa66-b86753a8266d)
 
