@@ -246,13 +246,24 @@ void main() {
 ```
 ## Результат виконання програми
 ### Задача №1
-![image](https://github.com/user-attachments/assets/312a35ec-fc1a-4704-afb0-9bee88ed5210)
+При значенні х = 2,
+![image](https://github.com/user-attachments/assets/f94881d9-bf45-484e-b58d-67f2cbcb35f2)
+При значенні х = 3,
+![image](https://github.com/user-attachments/assets/a3ee1477-40fc-4709-a227-1291eb0f440d)
+При значенні х = 5,
+![image](https://github.com/user-attachments/assets/586ba7c2-1e9d-49de-aa27-07684cc6cb21)
 
 Також приклад результату, якщо ми введемо замість числа інший символ:
-![image](https://github.com/user-attachments/assets/64204cd5-fbb9-42b4-976c-e253379cee92)
+![image](https://github.com/user-attachments/assets/bf2ab19e-033a-4230-9a9d-1d2a55f71efc)
 
 ### Задача №2
-![image](https://github.com/user-attachments/assets/98238eea-0d0a-4068-813e-07be1e4c9e8f)
+Підберемо значення, щоб квадрати перетинались:
+![image](https://github.com/user-attachments/assets/a76f4318-ec4b-46ba-9f56-a6e9edecc412)
+та, щоб не перетинались:
+![image](https://github.com/user-attachments/assets/9204c8d5-8aca-4025-bd32-a765237abd37)
+
+Також приклад результату, якщо ми введемо замість числа інший символ:
+![image](https://github.com/user-attachments/assets/9f83b80f-a9f3-40e7-b270-0a2cfefc17fb)
 
 ## Аналіз достовірності результатів
 Перевіримо чи є кінцевий результат задач вірним. Для цього використаймо калькулятор "Photomath"
