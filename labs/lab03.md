@@ -30,6 +30,7 @@
 
 using namespace std;
 
+// Функція welcome() виводить ідентифікаційні дані розробника, інформацію про лабораторну роботу та формулу
 void welcome()
 {
     cout << "Lab work 3, var 13, developer Maksym Kravcuk, gr. IPZ-14" << endl;
@@ -45,6 +46,7 @@ void welcome()
     cout << "===============================================" << endl;
 }
 
+// Функція power() реалізує рекурсивне піднесення до степеня, враховуючи від'ємні показники
 float power (float base, int exp) {
     // Базовий випадок: будь-яке число в степені 0 дорівнює 1
     if (exp == 0) return 1;
@@ -58,48 +60,61 @@ float power (float base, int exp) {
 
 int main()
 {
-    welcome();
+    welcome(); // Виклик функції welcome() для виводу інформації про розробника та завдання
     SetConsoleOutputCP(1251); // Для коректного відображення кирилиці в консолі
-    int accuracy;
+
+    int accuracy; // Змінна для зберігання введеної точності обчислення
     cout << "Введіть точність розрахунку внутрішньої суми: " << endl;
     cin >> accuracy;
 
+    // Заголовок таблиці виводу результатів
     cout << setw(5) << "x" << setw(5) << "k" << setw(15) << "term" << setw(15) << "sum" << endl;
-    float maxValueK = pow(10, 38);
-    float minValueK = pow(10, -38);
-    float sum = 0;
+
+    // Граничні значення для перевірки переповнення
+    float maxValueK = pow(10, 38); // Максимальне значення
+    float minValueK = pow(10, -38); // Мінімальне значення
+    float sum = 0; // Змінна для накопичення суми
+
+    // Зовнішній цикл по значеннях x від 1 до 5
     for (int x = 1; x <= 5; x++)
     {
-        int k = 0;
-        int accuracyForWhile = accuracy + (x - 1);
-            do {
-                float term;
-                float denominator = k * 3 + k * sqrt(x + 1);
-                float numerator = power(-1, k) * power(x, k);
-                if (denominator == 0) {
-                    term = 0;
-                }
-                else {
-                    term = numerator / denominator;
-                }
-                float termCheck = abs(term);
-                if (termCheck > minValueK || termCheck < maxValueK) {
-                    sum += term;
-                    cout << setw(5) << x << setw(5) << k << setw(17) << term << setw(17) << sum << endl;
-                    ++k;
-                }
-                else{
-                    cout << "overflow float member - break cycle  with k" <<endl;
-                    ++k;
-                    break;
+        int k = 0; // Ініціалізація лічильника k для кожного x
+        int accuracyForWhile = accuracy + (x - 1); // Розрахунок точності для поточного x
+
+        // Цикл обчислення внутрішньої суми по k
+        do {
+            float term; // Змінна для обчислення члена ряду
+            float denominator = k * 3 + k * sqrt(x + 1); // Обчислення знаменника
+            float numerator = power(-1, k) * power(x, k); // Обчислення чисельника
+
+            // Перевірка на нульове значення знаменника
+            if (denominator == 0) {
+                term = 0;
             }
-        } while (k < accuracyForWhile+1);
-            cout << "----------------------------------------------------------------" << endl;
+            else {
+                term = numerator / denominator; // Обчислення члена ряду
+            }
+
+            float termCheck = abs(term); // Абсолютне значення члена ряду для перевірки переповнення
+
+            // Перевірка, чи значення члена ряду не перевищує граничні значення
+            if (termCheck > minValueK || termCheck < maxValueK) {
+                sum += term; // Додавання члена ряду до загальної суми
+                cout << setw(5) << x << setw(5) << k << setw(17) << term << setw(17) << sum << endl; // Вивід результату
+                ++k; // Збільшення лічильника k
+            }
+            else {
+                cout << "overflow float member - break cycle with k" << endl; // Повідомлення про переповнення
+                ++k;
+                break; // Завершення циклу при переповненні
+            }
+        } while (k < accuracyForWhile + 1); // Умова завершення циклу по k для поточного x
+
+        cout << "----------------------------------------------------------------" << endl; // Розділювальна лінія для зручності виводу
     }
 
-    return 0;
+    return 0; // Завершення програми
 }
-
 ```
 ## Результат виконання програми
 ### Задача №1
