@@ -20,227 +20,86 @@
 ### Задача №1
 Під час створення проекту було підключено iostream, cmath, iomanip та Windows.h для роботи з введенням/виведенням, математичними операціями та форматуванням тексту. Також було створено функцію welcome() виводить ідентифікаційні дані розробника та опис завдання. Вона інформує про лабораторну роботу №3, варіант 13, та формулу для обчислення. Функція power() було створена для того, щоб реалізувати рекурсивне піднесення до степеня, враховуючи від’ємні експоненти. Функція innerSum() обчислює внутрішню суму для заданого x та k, включаючи перевірку на переповнен
 **Зверніть увагу**, що при редагуванні та запуску коду, слід використовувати найновішу версію компілятора. І в основній функції main() ініціалізується консоль для кирилиці, виводиться привітання, отримується значення kMax, та запускається обчислення. Програма виводить таблицю з результатами для кожного x і k, в якій кожен рядок показує обчислене значення члена ряду та накопичену суму. Наприкінці відображається загальна сума обчислених значень ряду.
-## Алгоритм у вигляді блок-схеми
-### Задача №1
+## Алгоритм у вигляді блок-схеми:
 ![image](https://github.com/user-attachments/assets/d668b6b8-61f6-4be6-94e5-33f7c0e1af16)
-### Задача №2
-![image](https://github.com/user-attachments/assets/caf6de0e-4924-450e-8856-6142e695ec5e)
 
-
-## Код програми
-### Задача №1
-Код програми:
-```cpp 
-#include <iostream>
-#include <math.h> // Підключаємо бібліотеку для роботи з математичними функціями
-#include <locale> // Підключаємо бібліотеку для локалізації
-#include <limits> // Підключаємо бібліотеку для роботи з обмеженнями введення
-#include <numbers> // Підключаємо бібліотеку для використання математичних констант
-using namespace std;
-
-// Зберігаємо значення числа Пі
-double PI = numbers::pi;
-
-// Функція для введення числа з перевіркою коректності
-double isNumber(double &xValue) {
-	while (true) {
-		cout << "Введiть значення х: ";
-		cin >> xValue;
-		// Перевіряємо, чи було введено некоректне значення
-		if (cin.fail()) {
-			cin.clear(); // Очищаємо стан потоку
-			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ігноруємо некоректне введення
-			cout << endl << "Значення було введено некоректне. Спробуйте ще раз...";
-			system("pause"); // Зупиняємо виконання програми для зручності користувача
-			system("cls"); // Очищаємо екран
-		}
-		else {
-			break; // Виходимо з циклу, якщо введення коректне
-		}
-	}
-	return xValue; // Повертаємо коректне значення
-}
-
-// Функція для обчислення результату залежно від значення x
-void solutionFoo(double &xValue, double &Foo) {
-	// Якщо x у межах від 0 до PI, застосовуємо синус
-	if (0 < xValue && xValue < PI) {
-		Foo = sin(xValue);
-	}
-	// Якщо x у межах від PI до 3/2 PI, застосовуємо косинус
-	else if (PI < xValue && xValue < 3 * (PI) / 2) {
-		Foo = cos(xValue);
-	}
-	// Якщо x у межах від 3/2 PI до 2 PI, застосовуємо тангенс
-	else if (3 * (PI) / 2 < xValue && xValue < 2 * PI) {
-		Foo = sin(xValue) / cos(xValue);
-	}
-	// Якщо x не входить у жодні з умов
-	else {
-		cout << endl << "Число не входить у межі(за умовою)!";
-		system("pause"); // Зупиняємо виконання програми для зручності користувача
-		system("cls"); // Очищаємо екран
-	}
-}
-
-// Основна функція
-int main() {
-	setlocale(LC_CTYPE, "ukr"); // Встановлюємо українську локалізацію для підтримки українських символів
-	double x, result; // Оголошуємо змінні для значення x та результату
-	isNumber(x); // Викликаємо функцію для введення та перевірки значення x
-	solutionFoo(x, result); // Обчислюємо результат залежно від значення x
-	cout << "Кiнцевий результат рiвняння  = " << result << endl; // Виводимо результат на екран
-}
-
-```
-### Задача №2
-Код програми:
+## Код програми:
 ```cpp
 #include <iostream>
-#include <limits>
-#include <locale>
+#include <iomanip>
+#include <cmath>
+#include <Windows.h>
+
 using namespace std;
 
-// Структура для збереження координат точки
-struct point {
-public:
-	int x; // координата x
-	int y; // координата y
-	
-	// Конструктор з параметрами для ініціалізації координат
-	point(int value1, int value2) {
-		x = value1;
-		y = value2;
-	}
-	
-	// Конструктор за замовчуванням, ініціалізує точку з координатами (0, 0)
-	point() {
-		x = 0;
-		y = 0;
-	}
-	
-	// Функція для виведення координат точки
-	void printPoint() {
-		cout << "(" << x << "," << y << ")" << endl;
-	}
-};
-
-// Функція для введення координат точки з перевіркою коректності
-void writeCoordinate(int xy[2]) {
-	char arr[]{ 'x','y' };
-	for (int i = 0; i < 2; i++) {
-		while (true) {
-			cout << endl << "Введiть координату " << arr[i] << ":";
-			cin >> xy[i];
-			// Перевіряємо на коректність введення
-			if (cin.fail()) {
-				cin.clear(); // Очищаємо стан потоку
-				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ігноруємо некоректне введення
-				cout << "Некоректне введення. Будь ласка, спробуйте ще раз." << endl;
-			} else {
-				break; // Якщо введення коректне, виходимо з циклу
-			}
-		}
-	}
+void welcome()
+{
+    cout << "Lab work 3, var 13, developer Maksym Kravcuk, gr. IPZ-14" << endl;
+    cout << "e-mail: maksymkravchuk333@gmail.com" << endl;
+    cout << "===============================================" << endl;
+    cout << "To calculate the sum of row" << endl;
+    cout << "external sum for x from 1 to 5" << endl;
+    cout << "internal sum for k from 0 to infinity" << endl;
+    cout << "The formula includes exponentiation and factorials" << endl;
+    cout << "x=5 inf" << endl;
+    cout << "sum   sum  (-1)^k * x^k / (k*3 + k*sqrt(x+1))" << endl;
+    cout << "x=1  k=0" << endl;
+    cout << "===============================================" << endl;
 }
 
-// Функція для створення координат квадрату
-void createSquare(point po1nt, int* side, point arr[4]) {
-	while (true) {
-		cout << endl << "Введiть розмiр сторони квадрата: ";
-		cin >> *side;
-		// Перевіряємо на коректність введення
-		if (cin.fail()) {
-			cin.clear(); // Очищаємо стан потоку
-			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ігноруємо некоректне введення
-			cout << "Некоректне введення. Будь ласка, спробуйте ще раз." << endl;
-		} else {
-			break; // Введено коректне значення, виходимо з циклу
-		}
-	}
-	// Задаємо координати вершин квадрату на основі лівої нижньої точки та розміру сторони
-	arr[0] = po1nt;
-	arr[1] = { po1nt.x, po1nt.y + *side };
-	arr[2] = { po1nt.x + *side, po1nt.y + *side };
-	arr[3] = { po1nt.x + *side, po1nt.y };
+float power (float base, int exp) {
+    // Базовий випадок: будь-яке число в степені 0 дорівнює 1
+    if (exp == 0) return 1;
+
+    // Якщо показник від'ємний, повертаємо обернене значення
+    if (exp < 0) return 1 / power(base, -exp);
+
+    // Рекурсивний випадок: base^exp = base * base^(exp - 1)
+    return base * power(base, exp - 1);
 }
 
-// Функція для виведення координат квадрату
-void writeCoordSquare(point arr[4]) {
-	for (int i = 0; i < 4; i++) {
-		cout << endl << "Координати точки " << i + 1 << ":" << endl;
-		arr[i].printPoint();
-	}
-}
+int main()
+{
+    welcome();
+    SetConsoleOutputCP(1251); // Для коректного відображення кирилиці в консолі
+    int accuracy;
+    cout << "Введіть точність розрахунку внутрішньої суми: " << endl;
+    cin >> accuracy;
 
-// Функція для виведення координат перетину квадратів
-void squareCrossing(int size, point arr2[], point arr1[]) {
-	cout << endl << "Координати утвореного квадрату: ";
-	switch (size) {
-		// Виводимо координати відповідних точок залежно від індексу
-		case 0:
-			cout << endl << "Координати лiвої нижньої точки: (" << arr2[size].x << ";" << arr2[size].y << ")";
-			cout << endl << "Координати правої верхньої точки : (" << arr1[2].x << ";" << arr1[2].y << ")";
-			break;
-		case 1:
-			cout << endl << "Координати лiвої верхньої точки: (" << arr2[size].x << ";" << arr2[size].y << ")";
-			cout << endl << "Координати правої нижньої точки: (" << arr1[3].x << ";" << arr1[3].y << ")";
-			break;
-		case 2:
-			cout << endl << "Координати верхньої правої точки: (" << arr2[size].x << ";" << arr2[size].y << ")";
-			cout << endl << "Координати лiвої нижньої точки: (" << arr1[0].x << ";" << arr1[0].y << ")";
-			break;
-		case 3:
-			cout << endl << "Координати правої нижньої точки: (" << arr2[size].x << ";" << arr2[size].y << ")";
-			cout << endl << "Координати лiвої верхньої точки : (" << arr1[1].x << ";" << arr1[1].y << ")";
-			break;
-		default:
-			cout << endl << "ПОМИЛКА!";
-	}
-}
+    cout << setw(5) << "x" << setw(5) << "k" << setw(15) << "term" << setw(15) << "sum" << endl;
+    float maxValueK = pow(10, 38);
+    float minValueK = pow(10, -38);
+    float sum = 0;
+    for (int x = 1; x <= 5; x++)
+    {
+        int k = 0;
+        int accuracyForWhile = accuracy + (x - 1);
+            do {
+                float term;
+                float denominator = k * 3 + k * sqrt(x + 1);
+                float numerator = power(-1, k) * power(x, k);
+                if (denominator == 0) {
+                    term = 0;
+                }
+                else {
+                    term = numerator / denominator;
+                }
+                float termCheck = abs(term);
+                if (termCheck > minValueK || termCheck < maxValueK) {
+                    sum += term;
+                    cout << setw(5) << x << setw(5) << k << setw(17) << term << setw(17) << sum << endl;
+                    ++k;
+                }
+                else{
+                    cout << "overflow float member - break cycle  with k" <<endl;
+                    ++k;
+                    break;
+            }
+        } while (k < accuracyForWhile+1);
+            cout << "----------------------------------------------------------------" << endl;
+    }
 
-// Функція для перевірки, чи перетинаються квадрати
-void checkCrossing(point arr1[4], point arr2[4], int* TorF) {
-	for (int i = 0; i < 4; i++) {
-		// Перевіряємо, чи точка другого квадрату знаходиться всередині першого квадрату
-		if ((arr1[0].x < arr2[i].x && arr2[i].x < arr1[2].x) && (arr1[0].y < arr2[i].y && arr2[i].y < arr1[2].y)) {
-			squareCrossing(i, arr2, arr1); // Викликаємо функцію для обчислення координат перетину
-			*TorF = 0; // Змінюємо значення прапора для завершення циклу
-			break;
-		}
-	}
-}
-
-// Основна функція
-void main() {
-	setlocale(LC_CTYPE, "ukr"); // Встановлюємо українську локалізацію
-	int xy[2]; // Масив для збереження координат
-	int a = 1, side, * TorF1 = &a; // Змінні для розміру сторони та контролю циклу
-	point firstSquare[4]; // Масив для збереження координат першого квадрату
-	point secondSquare[4]; // Масив для збереження координат другого квадрату
-	
-	// Цикл для введення даних і перевірки перетину квадратів
-	while (*TorF1 == 1) {
-		cout << "_____________________________ Перший квадрат _____________________________" << endl << "Введiть координати лiвої нижньої точки першого куба: ";
-		writeCoordinate(xy); // Вводимо координати для першого квадрату
-		point firstLeftDown(xy[0], xy[1]); // Створюємо точку на основі введених координат
-		createSquare(firstLeftDown, &side, firstSquare); // Створюємо квадрат
-		writeCoordSquare(firstSquare); // Виводимо координати квадрату
-		
-		cout << "_____________________________ Другий квадрат _____________________________" << endl << "Введiть координати лiвої нижньої точки другого куба: ";
-		writeCoordinate(xy); // Вводимо координати для другого квадрату
-		point secondLeftDown(xy[0], xy[1]); // Створюємо точку на основі введених координат
-		createSquare(secondLeftDown, &side, secondSquare); // Створюємо квадрат
-		writeCoordSquare(secondSquare); // Виводимо координати квадрату
-		
-		checkCrossing(firstSquare, secondSquare, TorF1); // Перевіряємо перетин квадратів
-		if (*TorF1 == 1) {
-			cout << endl << "Квадрати не перетинаються, спробуйте ще раз..." << endl;
-			system("pause"); // Зупиняємо виконання програми для зручності користувача
-			system("cls"); // Очищаємо екран
-		}
-	}
-	cout << endl << "Кiнець програми!!!" << endl;
+    return 0;
 }
 
 ```
